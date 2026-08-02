@@ -1,0 +1,39 @@
+.hero-bg{
+    background:
+    radial-gradient(circle at top right,#06b6d455 0%,transparent 30%),
+    radial-gradient(circle at bottom left,#3b82f655 0%,transparent 35%),
+    #020617;
+}
+
+.gradient-text{
+    background:linear-gradient(90deg,#22d3ee,#3b82f6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.glass-card{
+    background:rgba(15,23,42,.75);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.floating{
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
