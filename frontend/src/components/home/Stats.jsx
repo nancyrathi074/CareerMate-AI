@@ -1,69 +1,62 @@
-import {CountUp} from "react-countup";
-import { useInView } from "react-intersection-observer";
 
-function StatCard({ end, suffix, title }) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-  });
+import "./Stats.css";
+import {
+  FiFileText,
+  FiTarget,
+  FiBookOpen,
+  FiMap
+} from "react-icons/fi";
 
-  return (
-    <div
-      ref={ref}
-      className="bg-slate-900 rounded-2xl p-8 border border-slate-800 hover:border-cyan-400 transition duration-300"
-    >
-      <h2 className="text-5xl font-bold text-cyan-400 mb-2">
-  {end}
-  {suffix}
-</h2>
-
-      <p className="text-slate-400">{title}</p>
-    </div>
-  );
-}
+const highlights = [
+  {
+    icon: <FiFileText />,
+    title: "Resume improvement",
+    description: "Review your resume and identify areas to improve."
+  },
+  {
+    icon: <FiTarget />,
+    title: "Job preparation",
+    description: "Compare your skills with your career goals."
+  },
+  {
+    icon: <FiBookOpen />,
+    title: "Interview practice",
+    description: "Prepare for common technical and HR questions."
+  },
+  {
+    icon: <FiMap />,
+    title: "Career planning",
+    description: "Organise your learning and development goals."
+  }
+];
 
 export default function Stats() {
   return (
-    <section className="bg-slate-950 py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="highlights-section">
+      <div className="highlights-container">
 
-        <div className="text-center mb-16">
-
-          <h2 className="text-4xl font-bold text-white">
-            Trusted by Future Professionals
-          </h2>
-
-          <p className="text-slate-400 mt-4">
-            Helping students prepare smarter with AI-powered career tools.
+        <div className="highlights-heading">
+          <span className="section-eyebrow">A PRACTICAL APPROACH</span>
+          <h2>Your career preparation, in one place.</h2>
+          <p>
+            Work on different parts of your career journey
+            with tools designed to work together.
           </p>
-
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="highlights-grid">
+          {highlights.map((item) => (
+            <div className="highlight-item" key={item.title}>
+              <span className="highlight-icon">
+                {item.icon}
+              </span>
 
-          <StatCard
-            end={15}
-            suffix="K+"
-            title="Resumes Analyzed"
-          />
-
-          <StatCard
-            end={98}
-            suffix="%"
-            title="ATS Success Rate"
-          />
-
-          <StatCard
-            end={250}
-            suffix="+"
-            title="Hiring Companies"
-          />
-
-          <StatCard
-            end={24}
-            suffix="/7"
-            title="AI Career Support"
-          />
-
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

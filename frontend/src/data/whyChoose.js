@@ -1,3 +1,4 @@
+
 import {
   FaBrain,
   FaCheckCircle,
@@ -10,32 +11,38 @@ import {
 export const whyChoose = [
   {
     icon: FaBrain,
-    title: "AI Powered",
-    description: "Advanced AI analyzes resumes and provides smart career recommendations.",
+    title: "Resume Assistance",
+    description:
+      "Review your resume and receive suggestions to improve its content and presentation.",
   },
   {
     icon: FaCheckCircle,
-    title: "ATS Friendly",
-    description: "Improve your resume to pass Applicant Tracking Systems.",
+    title: "ATS-Friendly Resumes",
+    description:
+      "Improve resume structure and formatting for applicant tracking systems.",
   },
   {
     icon: FaRoute,
-    title: "Career Roadmaps",
-    description: "Receive personalized learning paths based on your goals.",
+    title: "Learning Plans",
+    description:
+      "Organise your learning goals and identify skills to develop for your chosen career.",
   },
   {
     icon: FaUserTie,
-    title: "Interview Practice",
-    description: "Prepare with AI-generated technical and HR interview questions.",
+    title: "Interview Preparation",
+    description:
+      "Practise technical and HR questions before your next interview.",
   },
   {
     icon: FaSearch,
-    title: "Smart Job Matching",
-    description: "Match your skills with thousands of relevant job descriptions.",
+    title: "Job Search Support",
+    description:
+      "Compare your skills with job requirements and explore suitable opportunities.",
   },
   {
     icon: FaChartLine,
-    title: "Track Progress",
-    description: "Monitor your resume score, interviews and learning journey.",
+    title: "Career Progress",
+    description:
+      "Keep track of your resume reviews, interview preparation and learning activities.",
   },
 ];

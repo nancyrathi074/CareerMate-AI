@@ -1,82 +1,61 @@
-import {
-  FaGithub,
-  FaLinkedin,
-  FaEnvelope,
-} from "react-icons/fa";
+
+import "./Footer.css";
+import { Link } from "react-router-dom";
+import { FiArrowUpRight } from "react-icons/fi";
 
 function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-6 py-16">
+    <footer className="site-footer">
+      <div className="footer-container">
 
-        <div className="grid md:grid-cols-4 gap-10">
+        <div className="footer-main">
 
-          {/* Logo */}
+          <div className="footer-brand">
+            <Link to="/" className="footer-logo">
+              <span className="footer-logo-mark">c.</span>
+              CareerMate
+            </Link>
 
-          <div>
-            <h2 className="text-3xl font-bold text-cyan-400">
-              CareerMate AI
-            </h2>
-
-            <p className="text-slate-400 mt-5 leading-8">
-              Your AI-powered career companion for resumes,
-              interviews, job matching and career growth.
+            <p>
+              A practical space to improve your resume,
+              prepare for interviews and plan your career.
             </p>
           </div>
 
-          {/* Quick Links */}
-
-          <div>
-            <h3 className="text-white font-semibold mb-5">
-              Quick Links
-            </h3>
-
-            <ul className="space-y-3 text-slate-400">
-              <li>Home</li>
-              <li>Features</li>
-              <li>Dashboard</li>
-              <li>Contact</li>
-            </ul>
+          <div className="footer-column">
+            <h3>Explore</h3>
+            <Link to="/">Home</Link>
+            <a href="/#features">Features</a>
+            <a href="/#how-it-works">How it works</a>
+            <Link to="/dashboard">Dashboard</Link>
           </div>
 
-          {/* Features */}
-
-          <div>
-            <h3 className="text-white font-semibold mb-5">
-              Features
-            </h3>
-
-            <ul className="space-y-3 text-slate-400">
-              <li>Resume Analyzer</li>
-              <li>Interview Prep</li>
-              <li>Career Roadmap</li>
-              <li>Job Matcher</li>
-            </ul>
+          <div className="footer-column">
+            <h3>Career tools</h3>
+            <Link to="/resume-analyzer">Resume review</Link>
+            <Link to="/job-matcher">Job matching</Link>
+            <Link to="/interview-prep">Interview practice</Link>
+            <Link to="/career-roadmap">Career roadmap</Link>
           </div>
 
-          {/* Contact */}
+          <div className="footer-column footer-contact">
+            <h3>Get started</h3>
+            <p>
+              Take a more organised approach
+              to your career preparation.
+            </p>
 
-          <div>
-            <h3 className="text-white font-semibold mb-5">
-              Connect
-            </h3>
-
-            <div className="flex gap-5 text-2xl text-cyan-400">
-
-              <FaGithub className="cursor-pointer hover:scale-110 transition" />
-
-              <FaLinkedin className="cursor-pointer hover:scale-110 transition" />
-
-              <FaEnvelope className="cursor-pointer hover:scale-110 transition" />
-
-            </div>
-
+            <Link to="/signup" className="footer-cta">
+              Create an account
+              <FiArrowUpRight />
+            </Link>
           </div>
 
         </div>
 
-        <div className="border-t border-slate-800 mt-14 pt-8 text-center text-slate-500">
-          © 2026 CareerMate AI. Built with React + Node + AI.
+        <div className="footer-bottom">
+          <span>© 2026 CareerMate. All rights reserved.</span>
+          <span>Made for your next career step.</span>
         </div>
 
       </div>

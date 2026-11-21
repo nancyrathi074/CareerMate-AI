@@ -1,31 +1,39 @@
-import WhyChooseCard from "../common/WhyChooseCard";
+
+import "./WhyChoose.css";
 import { whyChoose } from "../../data/whyChoose";
 
 function WhyChoose() {
   return (
-    <section className="bg-slate-950 py-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="why-section">
+      <div className="why-container">
 
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-white">
-            Why Choose CareerMate AI?
-          </h2>
+        <div className="why-heading">
+          <span className="section-eyebrow">WHY CAREERMATE</span>
 
-          <p className="text-slate-400 mt-6 max-w-2xl mx-auto text-lg">
-            Everything you need to build a stronger resume,
-            prepare for interviews, and land your dream job.
+          <h2>Designed around your career goals.</h2>
+
+          <p>
+            Bring your career preparation activities
+            together in one organised workspace.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {whyChoose.map((item) => (
-            <WhyChooseCard
-              key={item.title}
-              icon={item.icon}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
+        <div className="why-grid">
+          {whyChoose.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <article className="why-card" key={item.title}>
+                <div className="why-icon">
+                  <Icon />
+                </div>
+
+                <h3>{item.title}</h3>
+
+                <p>{item.description}</p>
+              </article>
+            );
+          })}
         </div>
 
       </div>

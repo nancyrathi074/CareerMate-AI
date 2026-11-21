@@ -1,0 +1,144 @@
+
+.site-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+  width: min(1160px, calc(100% - 48px));
+  min-height: 78px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--lavender);
+  color: var(--purple);
+  border-radius: 11px;
+  font-size: 22px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links > a,
+.login-link {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.nav-links > a:hover,
+.login-link:hover {
+  color: var(--purple);
+}
+
+.desktop-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 20px;
+  background: var(--lavender);
+  color: #514765;
+  border: 1px solid var(--lavender-dark);
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--lavender-dark);
+  transform: translateY(-1px);
+}
+
+.mobile-menu-button,
+.mobile-nav-actions {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .nav-container {
+    min-height: 70px;
+  }
+
+  .desktop-nav-actions {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 25px;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 24px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .nav-links.nav-open {
+    display: flex;
+  }
+
+  .mobile-nav-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+  }
+
+  .mobile-nav-actions > a:first-child {
+    color: var(--muted);
+  }
+}
+
+@media (min-width: 851px) {
+  .mobile-nav-actions {
+    display: none;
+  }
+}

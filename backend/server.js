@@ -2,8 +2,12 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// Load .env FIRST
-dotenv.config();
+// Load environment variables
+dotenv.config({
+  path: new URL("./.env", import.meta.url),
+});
+const mongoURI = process.env.MONGO_URI;
+const groqAPIKey = process.env.GROQ_API_KEY;
 
 import connectDB from "./config/db.js";
 import resumeRoutes from "./routes/resumeRoutes.js";

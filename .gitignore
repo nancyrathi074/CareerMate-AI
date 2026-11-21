@@ -1,15 +1,30 @@
-# Node Modules
+
+# Node.js dependencies
 backend/node_modules/
 frontend/node_modules/
+**/node_modules/
 
-# Environment files
-backend/.env
-frontend/.env
+# Environment files and secrets
 .env
+.env.*
+!.env.example
+**/.env
+**/.env.*
 
-# Build
-dist
-build
+# Build output
+dist/
+build/
+target/
+**/dist/
+**/build/
+**/target/
 
 # Logs
 *.log
+npm-debug.log*
+
+# IDE and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

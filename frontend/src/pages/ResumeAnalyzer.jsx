@@ -1,175 +1,328 @@
+
 import Navbar from "../components/layout/Navbar";
 import { useState } from "react";
-import { FaFileUpload, FaCheckCircle } from "react-icons/fa";
+import {
+  FaFileUpload,
+  FaCheckCircle,
+  FaFileAlt,
+  FaLightbulb,
+  FaExclamationCircle,
+} from "react-icons/fa";
 import { analyzeResume } from "../api/resumeApi";
 
 function ResumeAnalyzer() {
-  const [uploaded, setUploaded] = useState(false);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [analysis, setAnalysis] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files?.[0];
+
+    if (!selectedFile) return;
+
+    const allowedExtensions = /\.(pdf|docx)$/i;
+
+    if (!allowedExtensions.test(selectedFile.name)) {
+      setError("Please select a PDF or DOCX file.");
+      setFile(null);
+      setFileName("");
+      setAnalysis(null);
+      e.target.value = "";
+      return;
+    }
+
+    if (selectedFile.size > 5 * 1024 * 1024) {
+      setError("File size must be less than 5 MB.");
+      setFile(null);
+      setFileName("");
+      setAnalysis(null);
+      e.target.value = "";
+      return;
+    }
+
+    setFile(selectedFile);
+    setFileName(selectedFile.name);
+    setAnalysis(null);
+    setError("");
+  };
 
   const handleAnalyze = async () => {
     if (!file) {
-      alert("Please upload a resume first.");
+      setError("Please upload your resume first.");
       return;
     }
 
     try {
-      const response = await analyzeResume(
-        "React Node Express MongoDB JavaScript"
-      );
+      setLoading(true);
+      setError("");
+      setAnalysis(null);
+
+      const response = await analyzeResume(file);
+
+      if (!response.data?.success) {
+        throw new Error(
+          response.data?.message || "Resume analysis failed."
+        );
+      }
 
       setAnalysis(response.data);
+    } catch (err) {
+      console.error(
+        "Resume Analysis Error:",
+        err.response?.data || err
+      );
 
-      alert("Backend Connected Successfully 🎉");
-    } catch (error) {
-      console.error(error);
-      alert("Backend Connection Failed ❌");
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        "Unable to analyze your resume. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
+
+  const atsScore = Number(analysis?.atsScore) || 0;
 
   return (
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-slate-950 text-white pt-28">
-        <div className="max-w-7xl mx-auto px-6 pb-12">
+      <main className="min-h-screen bg-white text-[#34323d]">
+        <section className="mx-auto w-full max-w-[1160px] px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16">
 
-          <h1 className="text-5xl font-bold mb-3">
-            AI Resume Analyzer
-          </h1>
+          {/* Page Heading */}
+          <div className="mb-12">
+            <span className="mb-3 block text-sm font-bold tracking-[0.16em] text-[#82739e]">
+              DOCUMENT REVIEW
+            </span>
 
-          <p className="text-slate-400 mb-10">
-            Upload your resume and receive an ATS score,
-            skill analysis and personalized suggestions.
-          </p>
+            <h1 className="mb-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Resume Analyzer
+            </h1>
 
-          <div className="grid lg:grid-cols-2 gap-10">
+            <p className="max-w-2xl text-lg leading-8 text-[#777481]">
+              Upload your resume to review its structure, skills and
+              presentation.
+            </p>
+          </div>
 
-            {/* Upload Card */}
+          {/* Main Content */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
 
-            <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
+            {/* Upload Section */}
+            <section className="rounded-2xl border border-[#e9e7ed] bg-[#f7f6f9] p-5 sm:p-8">
 
-              <div className="border-2 border-dashed border-cyan-500 rounded-3xl p-10 text-center">
+              <div className="flex min-h-[420px] flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#d8cbeF] bg-white px-5 py-10 text-center">
 
-                <FaFileUpload className="text-6xl text-cyan-400 mx-auto mb-6" />
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#eee9f7] text-3xl text-[#82739e]">
+                  <FaFileUpload />
+                </div>
 
-                <h2 className="text-2xl font-semibold mb-4">
+                <h2 className="mb-3 text-2xl font-semibold">
                   Upload Resume
                 </h2>
 
-                <p className="text-slate-400 mb-8">
-                  PDF or DOCX
+                <p className="mb-8 text-[#777481]">
+                  Supported formats: PDF or DOCX
                 </p>
 
-                <label htmlFor="resumeUpload" className="cursor-pointer">
+                <label
+                  htmlFor="resumeUpload"
+                  className="cursor-pointer rounded-xl border border-[#ded8e9] bg-[#f7f6f9] px-6 py-3 font-semibold text-[#66587e] transition hover:bg-[#eee9f7]"
+                >
+                  Choose Resume
 
                   <input
                     id="resumeUpload"
                     type="file"
-                    accept=".pdf,.doc,.docx"
-                    className="hidden"
-                    onChange={(e) => {
-                      const selectedFile = e.target.files[0];
-
-                      if (selectedFile) {
-                        setUploaded(true);
-                        setFile(selectedFile);
-                        setFileName(selectedFile.name);
-                      }
-                    }}
+                    accept=".pdf,.docx"
+                    onChange={handleFileChange}
+                    disabled={loading}
+                    className="sr-only"
                   />
-
-                  <span className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white px-6 py-3 rounded-xl transition duration-300">
-                    Choose Resume
-                  </span>
-
                 </label>
 
-                <p className="mt-5 text-slate-300 font-medium">
-                  {fileName || "No file selected"}
-                </p>
+                <div className="mt-5 flex max-w-full items-center gap-2 text-sm text-[#777481]">
+                  {file && <FaFileAlt className="shrink-0 text-[#82739e]" />}
 
-                <button
-                  onClick={handleAnalyze}
-                  className="mt-8 bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-8 py-3 rounded-xl font-semibold transition duration-300"
-                >
-                  Analyze Resume
-                </button>
-
-              </div>
-
-            </div>
-
-            {/* Result Card */}
-
-            <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-
-              {!analysis ? (
-
-                <div className="flex justify-center items-center h-full text-slate-500">
-                  Upload a resume to begin analysis.
+                  <span className="break-all">
+                    {fileName || "No file selected"}
+                  </span>
                 </div>
 
-              ) : (
+                <button
+                  type="button"
+                  onClick={handleAnalyze}
+                  disabled={loading || !file}
+                  className="mt-8 rounded-xl bg-[#82739e] px-8 py-3.5 font-semibold text-white transition hover:bg-[#71618e] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {loading ? "Analyzing Resume..." : "Analyze Resume"}
+                </button>
 
+                {loading && (
+                  <p className="mt-4 text-sm text-[#82739e]">
+                    Please wait while your resume is being processed.
+                  </p>
+                )}
+              </div>
+
+              {error && (
+                <div
+                  role="alert"
+                  className="mt-5 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+                >
+                  <FaExclamationCircle className="mt-0.5 shrink-0" />
+                  <p>{error}</p>
+                </div>
+              )}
+            </section>
+
+            {/* Analysis Results */}
+            <section className="min-h-[420px] rounded-2xl border border-[#e9e7ed] bg-[#f7f6f9] p-6 sm:p-8">
+
+              {!analysis ? (
+                <div className="flex min-h-[360px] flex-col items-center justify-center text-center">
+
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#eee9f7] text-2xl text-[#82739e]">
+                    <FaCheckCircle />
+                  </div>
+
+                  <h2 className="mb-2 text-xl font-semibold">
+                    Analysis Results
+                  </h2>
+
+                  <p className="max-w-xs leading-7 text-[#777481]">
+                    Your resume analysis will appear here after you
+                    submit your document.
+                  </p>
+
+                </div>
+              ) : (
                 <>
-                  <h2 className="text-3xl font-bold mb-6">
+                  <h2 className="mb-8 text-2xl font-semibold">
                     Analysis Result
                   </h2>
 
-                  <div className="mb-8">
+                  {/* ATS Score */}
+                  <div className="mb-8 rounded-xl border border-[#e9e7ed] bg-white p-5">
 
-                    <p className="text-slate-400 mb-2">
-                      ATS Score
-                    </p>
+                    <div className="mb-3 flex items-center justify-between">
+                      <p className="font-medium text-[#777481]">
+                        ATS Score
+                      </p>
 
-                    <div className="w-full bg-slate-700 rounded-full h-4">
-
-                      <div
-                        className="bg-cyan-400 h-4 rounded-full transition-all duration-500"
-                        style={{
-                          width: `${analysis.atsScore}%`,
-                        }}
-                      />
-
+                      <span className="text-sm font-semibold text-[#82739e]">
+                        {atsScore}/100
+                      </span>
                     </div>
 
-                    <p className="mt-3 text-cyan-400 text-3xl font-bold">
-                      {analysis.atsScore}%
-                    </p>
+                    <div
+                      className="h-3 w-full overflow-hidden rounded-full bg-[#eee9f7]"
+                      role="progressbar"
+                      aria-label="ATS Score"
+                      aria-valuenow={atsScore}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
+                      <div
+                        className="h-full rounded-full bg-[#a69abf] transition-all duration-500"
+                        style={{ width: `${Math.min(100, Math.max(0, atsScore))}%` }}
+                      />
+                    </div>
 
+                    <p className="mt-4 text-3xl font-semibold text-[#82739e]">
+                      {atsScore}%
+                    </p>
                   </div>
 
-                  <h3 className="text-xl font-semibold mb-4">
-                    Strengths
-                  </h3>
+                  {/* Strengths */}
+                  <div className="mb-8">
+                    <h3 className="mb-4 text-lg font-semibold">
+                      Strengths
+                    </h3>
 
-                  <ul className="space-y-3">
+                    {analysis.strengths?.length > 0 ? (
+                      <ul className="space-y-4">
+                        {analysis.strengths.map((item, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start gap-3 text-[#5f5c68]"
+                          >
+                            <FaCheckCircle className="mt-1 shrink-0 text-[#82739e]" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-sm text-[#777481]">
+                        No strengths were returned.
+                      </p>
+                    )}
+                  </div>
 
-                    {analysis.strengths.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center gap-3"
-                      >
-                        <FaCheckCircle className="text-green-400" />
-                        {item}
-                      </li>
-                    ))}
+                  {/* Missing Skills */}
+                  <div className="mb-8">
+                    <h3 className="mb-4 text-lg font-semibold">
+                      Missing Skills
+                    </h3>
 
-                  </ul>
+                    {analysis.missingSkills?.length > 0 ? (
+                      <ul className="space-y-3">
+                        {analysis.missingSkills.map((skill, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start gap-3 text-[#5f5c68]"
+                          >
+                            <span className="mt-1 text-[#a69abf]">•</span>
+                            {skill}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-sm text-[#777481]">
+                        No missing skills were identified.
+                      </p>
+                    )}
+                  </div>
 
+                  {/* Suggestions */}
+                  <div>
+                    <div className="mb-4 flex items-center gap-2">
+                      <FaLightbulb className="text-[#82739e]" />
+
+                      <h3 className="text-lg font-semibold">
+                        Improvement Suggestions
+                      </h3>
+                    </div>
+
+                    {analysis.suggestions?.length > 0 ? (
+                      <ul className="space-y-3">
+                        {analysis.suggestions.map((suggestion, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start gap-3 text-[#5f5c68]"
+                          >
+                            <span className="mt-1 text-[#a69abf]">•</span>
+                            {suggestion}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-sm text-[#777481]">
+                        No improvement suggestions were returned.
+                      </p>
+                    )}
+                  </div>
                 </>
-
               )}
-
-            </div>
+            </section>
 
           </div>
-
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }

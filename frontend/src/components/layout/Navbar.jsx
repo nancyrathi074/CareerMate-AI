@@ -1,73 +1,52 @@
-import { FaRobot } from "react-icons/fa";
+import "./Navbar.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <header className="site-navbar">
+      <div className="nav-container">
 
-        {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center gap-3"
-        >
-          <div className="w-11 h-11 rounded-xl bg-cyan-500 flex items-center justify-center text-slate-950 text-xl">
-
-            <FaRobot />
-
-          </div>
-
-          <div>
-
-            <h2 className="font-bold text-2xl text-white">
-              CareerMate
-            </h2>
-
-            <p className="text-xs text-cyan-400">
-              AI Career Assistant
-            </p>
-
-          </div>
-
+        <Link to="/" className="brand" onClick={closeMenu}>
+          <span className="brand-mark">c.</span>
+          <span>CareerMate</span>
         </Link>
 
-        {/* Navigation */}
+        <nav className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
+          <a href="/#features" onClick={closeMenu}>Features</a>
+          <a href="/#how-it-works" onClick={closeMenu}>How it works</a>
+          <Link to="/career-roadmap" onClick={closeMenu}>Career roadmap</Link>
+          <Link to="/dashboard" onClick={closeMenu}>Dashboard</Link>
 
-        <nav className="hidden md:flex gap-8">
-
-          <a href="#features" className="text-slate-300 hover:text-cyan-400 transition">
-            Features
-          </a>
-
-          <a href="#how-it-works" className="text-slate-300 hover:text-cyan-400 transition">
-            How It Works
-          </a>
-
-          <a href="#pricing" className="text-slate-300 hover:text-cyan-400 transition">
-            Pricing
-          </a>
-
-          <a href="#contact" className="text-slate-300 hover:text-cyan-400 transition">
-            Contact
-          </a>
-
+          <div className="mobile-nav-actions">
+            <Link to="/login" onClick={closeMenu}>Log in</Link>
+            <Link to="/signup" className="nav-cta" onClick={closeMenu}>
+              Get started <FiArrowUpRight />
+            </Link>
+          </div>
         </nav>
 
-        {/* Buttons */}
+        <div className="desktop-nav-actions">
+          <Link to="/login" className="login-link">Log in</Link>
 
-        <div className="hidden md:flex gap-4">
-
-          <button className="text-slate-300 hover:text-white transition">
-            Login
-          </button>
-
-         <Link
-  to="/dashboard"
-  className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-6 py-3 rounded-xl font-semibold transition"
->
-  Get Started
-</Link>
+          <Link to="/signup" className="nav-cta">
+            Get started <FiArrowUpRight />
+          </Link>
         </div>
+
+        <button
+          className="mobile-menu-button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? <FiX /> : <FiMenu />}
+        </button>
 
       </div>
     </header>

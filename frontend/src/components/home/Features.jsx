@@ -1,97 +1,107 @@
+
 import "./Features.css";
-
-import FeatureCard from "../common/FeatureCard";
-
 import {
-  FaFileAlt,
-  FaBriefcase,
-  FaRobot,
-  FaRoad,
-  FaPenNib,
-  FaChartLine,
-} from "react-icons/fa";
+  FiFileText,
+  FiBriefcase,
+  FiMessageSquare,
+  FiMap,
+  FiEdit3,
+  FiTrendingUp,
+  FiArrowUpRight
+} from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const features = [
   {
-    icon: <FaFileAlt />,
-    title: "AI Resume Analyzer",
-    description:
-      "Upload your resume and receive ATS scoring, skill analysis and personalized improvement suggestions.",
+    icon: <FiFileText />,
+    title: "Resume Review",
+    description: "Review your resume, identify gaps and get suggestions to improve its presentation.",
+    path: "/resume-analyzer",
+    category: "DOCUMENTS"
   },
-
   {
-    icon: <FaBriefcase />,
-    title: "Job Matcher",
-    description:
-      "Compare your resume with job descriptions and identify missing skills instantly.",
+    icon: <FiBriefcase />,
+    title: "Job Matching",
+    description: "Compare your skills with job requirements and discover areas for improvement.",
+    path: "/job-matcher",
+    category: "JOB SEARCH"
   },
-
   {
-    icon: <FaRobot />,
-    title: "Interview Prep",
-    description:
-      "Practice AI-generated technical and HR interview questions tailored to your role.",
+    icon: <FiMessageSquare />,
+    title: "Interview Practice",
+    description: "Prepare for technical and HR interviews with questions suited to your target role.",
+    path: "/interview-prep",
+    category: "PREPARATION"
   },
-
   {
-    icon: <FaRoad />,
+    icon: <FiMap />,
     title: "Career Roadmap",
-    description:
-      "Receive a personalized roadmap that guides your learning journey step by step.",
+    description: "Organise your learning goals and plan the skills you want to develop next.",
+    path: "/career-roadmap",
+    category: "PLANNING"
   },
-
   {
-    icon: <FaPenNib />,
-    title: "Cover Letter Generator",
-    description:
-      "Generate professional cover letters customized for every application.",
+    icon: <FiEdit3 />,
+    title: "Cover Letter",
+    description: "Prepare a clear and professional cover letter for your job applications.",
+    path: "/dashboard",
+    category: "APPLICATIONS"
   },
-
   {
-    icon: <FaChartLine />,
+    icon: <FiTrendingUp />,
     title: "Career Dashboard",
-    description:
-      "Track resume analysis, interview history and career progress in one place.",
-  },
+    description: "Keep your career preparation activities organised in one place.",
+    path: "/dashboard",
+    category: "PROGRESS"
+  }
 ];
 
 function Features() {
   return (
-    <section
-      id="features"
-      className="features-bg py-16"
-    >
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="features" className="features-section">
+      <div className="features-container">
 
-        <div className="text-center mb-12">
+        <div className="features-heading">
+          <span className="section-eyebrow">WHAT YOU CAN DO</span>
 
-          <h2 className="text-5xl font-bold text-white">
-
-            Everything You Need
-
+          <h2>
+            Everything you need to
+            <span> move forward.</span>
           </h2>
 
-          <p className="text-slate-400 mt-6 max-w-2xl mx-auto text-lg">
-
-            CareerMate AI provides all the tools you need to
-            prepare for your next opportunity using Artificial
-            Intelligence.
-
+          <p>
+            Practical tools to help you prepare your resume,
+            explore opportunities and plan your career.
           </p>
-
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="features-grid">
+          {features.map((feature) => (
+            <Link
+              to={feature.path}
+              className="feature-card"
+              key={feature.title}
+            >
+              <div className="feature-card-top">
+                <span className="feature-icon">
+                  {feature.icon}
+                </span>
 
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
+                <span className="feature-category">
+                  {feature.category}
+                </span>
+              </div>
+
+              <h3>{feature.title}</h3>
+
+              <p>{feature.description}</p>
+
+              <span className="feature-link">
+                Explore feature
+                <FiArrowUpRight />
+              </span>
+            </Link>
           ))}
-
         </div>
 
       </div>

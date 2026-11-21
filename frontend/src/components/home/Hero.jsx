@@ -1,165 +1,122 @@
+
 import "./Hero.css";
-import { FaArrowRight, FaFileAlt, FaRobot } from "react-icons/fa";
+import {
+  FiArrowUpRight,
+  FiFileText,
+  FiBriefcase,
+  FiBookOpen,
+  FiCheckCircle
+} from "react-icons/fi";
 import { Link } from "react-router-dom";
+
 function Hero() {
   return (
-    <section className="hero-bg min-h-screen flex items-center pt-24">
+    <section className="hero-section">
+      <div className="hero-container">
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="hero-content">
 
-        {/* Left Side */}
+          <span className="hero-eyebrow">
+            A little more direction for your career
+          </span>
 
-        <div>
-
-          <div className="inline-flex items-center gap-3 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-5 py-2 rounded-full mb-8">
-
-            <FaRobot />
-
-            AI Career Assistant
-
-          </div>
-
-          <h1 className="text-6xl font-extrabold leading-tight text-white">
-
-            Your
-
-            <span className="gradient-text">
-              {" "}Career.
-            </span>
-
+          <h1>
+            Make your next
             <br />
-
-            Powered by
-
-            <span className="gradient-text">
-              {" "}AI
-            </span>
-
+            career move with
+            <span> confidence.</span>
           </h1>
 
-          <p className="text-slate-400 text-lg leading-8 mt-8 max-w-xl">
-
-            Analyze resumes, prepare for interviews,
-            match with jobs and build personalized
-            career roadmaps using powerful AI.
-
+          <p className="hero-description">
+            From improving your resume to preparing for interviews,
+            find practical tools to help you move forward in your career.
           </p>
 
-          <div className="flex gap-5 mt-10">
+          <div className="hero-actions">
+            <Link to="/dashboard" className="hero-primary-button">
+              Explore your dashboard
+              <FiArrowUpRight />
+            </Link>
 
-            <Link
-  to="/dashboard"
-  className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-8 py-4 rounded-xl font-semibold flex items-center gap-3"
->
-  Get Started
-  <FaArrowRight />
-</Link>
-            <Link
-  to="/resume-analyzer"
-  className="border border-slate-700 hover:border-cyan-400 text-white px-8 py-4 rounded-xl flex items-center gap-3 transition"
->
-  <FaFileAlt />
-  Analyze Resume
-</Link>
-
+            <Link to="/resume-analyzer" className="hero-secondary-button">
+              <FiFileText />
+              Review your resume
+            </Link>
           </div>
 
-          <p className="text-slate-500 mt-10">
-
-            ⭐⭐⭐⭐⭐ Trusted by students preparing for placements
-
-          </p>
+          <div className="hero-note">
+            <FiCheckCircle />
+            <span>Practical tools for every stage of your career</span>
+          </div>
 
         </div>
 
-        {/* Right Side */}
+        <div className="hero-preview">
 
-        <div className="glass-card rounded-3xl p-8 floating">
-
-          <h3 className="text-white text-2xl font-bold mb-8">
-
-            AI Dashboard
-
-          </h3>
-
-          <div className="space-y-6">
-
+          <div className="preview-heading">
             <div>
-
-              <div className="flex justify-between text-white mb-2">
-
-                <span>Resume Score</span>
-
-                <span className="text-cyan-400 font-bold">
-
-                  92%
-
-                </span>
-
-              </div>
-
-              <div className="bg-slate-700 rounded-full h-3">
-
-                <div className="bg-cyan-400 h-3 rounded-full w-[92%]"></div>
-
-              </div>
-
+              <span className="preview-label">YOUR WORKSPACE</span>
+              <h3>Career overview</h3>
             </div>
 
-            <div>
+            <span className="preview-avatar">C</span>
+          </div>
 
-              <div className="flex justify-between text-white mb-2">
+          <p className="preview-description">
+            Everything you need to work on your next career step.
+          </p>
 
-                <span>Job Match</span>
+          <div className="preview-items">
 
-                <span className="text-green-400 font-bold">
+            <Link to="/resume-analyzer" className="preview-item">
+              <span className="preview-icon lavender-icon">
+                <FiFileText />
+              </span>
 
-                  87%
+              <span className="preview-item-content">
+                <strong>Resume review</strong>
+                <small>Improve your resume</small>
+              </span>
 
-                </span>
+              <FiArrowUpRight className="preview-arrow" />
+            </Link>
 
-              </div>
+            <Link to="/job-matcher" className="preview-item">
+              <span className="preview-icon grey-icon">
+                <FiBriefcase />
+              </span>
 
-              <div className="bg-slate-700 rounded-full h-3">
+              <span className="preview-item-content">
+                <strong>Find suitable roles</strong>
+                <small>Explore job matches</small>
+              </span>
 
-                <div className="bg-green-400 h-3 rounded-full w-[87%]"></div>
+              <FiArrowUpRight className="preview-arrow" />
+            </Link>
 
-              </div>
+            <Link to="/interview-prep" className="preview-item">
+              <span className="preview-icon pink-icon">
+                <FiBookOpen />
+              </span>
 
-            </div>
+              <span className="preview-item-content">
+                <strong>Interview practice</strong>
+                <small>Prepare for interviews</small>
+              </span>
 
-            <div className="bg-slate-800 rounded-xl p-5">
+              <FiArrowUpRight className="preview-arrow" />
+            </Link>
 
-              <h4 className="text-cyan-400 mb-3">
+          </div>
 
-                Missing Skills
-
-              </h4>
-
-              <div className="flex gap-3 flex-wrap">
-
-                <span className="bg-slate-700 px-3 py-1 rounded-lg text-white">
-                  Docker
-                </span>
-
-                <span className="bg-slate-700 px-3 py-1 rounded-lg text-white">
-                  AWS
-                </span>
-
-                <span className="bg-slate-700 px-3 py-1 rounded-lg text-white">
-                  CI/CD
-                </span>
-
-              </div>
-
-            </div>
-
+          <div className="preview-footer">
+            <span>One step at a time.</span>
+            <span>CareerMate</span>
           </div>
 
         </div>
 
       </div>
-
     </section>
   );
 }

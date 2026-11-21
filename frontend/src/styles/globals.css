@@ -1,13 +1,77 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-*{
-    font-family: "Poppins", sans-serif;
+:root {
+  font-family: 'Source Sans 3', sans-serif;
+  color: #34323d;
+  background: #ffffff;
+
+  --white: #ffffff;
+  --grey: #f5f5f7;
+  --lavender: #eee9f7;
+  --lavender-dark: #dcd2ed;
+  --purple: #82739e;
+  --text: #34323d;
+  --muted: #777481;
+  --border: #e9e7ed;
 }
 
-html{
-    scroll-behavior:smooth;
+* {
+  box-sizing: border-box;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
-body{
-    background:#020617;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--white);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: #e5ddf1;
+  color: #34323d;
+}
+
+.container {
+  width: min(1160px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding: 88px 0;
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 32px, 1160px);
+  }
+
+  .section-padding {
+    padding: 60px 0;
+  }
 }
