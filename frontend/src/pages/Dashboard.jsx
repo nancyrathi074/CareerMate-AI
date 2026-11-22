@@ -1,11 +1,12 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaFileAlt,
   FaBriefcase,
   FaRobot,
   FaRoad,
   FaArrowRight,
+  FaSignOutAlt,
 } from "react-icons/fa";
 
 const cards = [
@@ -40,21 +41,45 @@ const cards = [
 ];
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+  const user = JSON.parse(
+    sessionStorage.getItem("authUser") || "{}"
+  );
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("authToken");
+    sessionStorage.removeItem("authUser");
+    navigate("/login", { replace: true });
+  };
+
   return (
     <main className="min-h-screen bg-white text-[#34323d]">
       <section className="mx-auto w-full max-w-[1160px] px-4 py-16 sm:px-6 sm:py-20">
-        <div className="mb-12">
-          <span className="mb-3 block text-sm font-bold tracking-[0.16em] text-[#82739e]">
-            YOUR WORKSPACE
-          </span>
 
-          <h1 className="mb-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Dashboard
-          </h1>
+        <div className="mb-12 flex flex-wrap items-center justify-between gap-5">
+          <div>
+            <span className="mb-3 block text-sm font-bold tracking-[0.16em] text-[#82739e]">
+              YOUR WORKSPACE
+            </span>
 
-          <p className="max-w-2xl text-lg leading-8 text-[#777481]">
-            Welcome back! Choose a tool to continue working on your career goals.
-          </p>
+            <h1 className="mb-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Dashboard
+            </h1>
+
+            <p className="max-w-2xl text-lg leading-8 text-[#777481]">
+              Welcome back{user.name ? `, ${user.name}` : ""}!
+              {" "}Choose a tool to continue working on your career goals.
+            </p>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 rounded-lg border border-[#e9e7ed] px-5 py-3 text-sm font-semibold text-[#82739e] transition hover:bg-[#f7f6f9]"
+          >
+            <FaSignOutAlt />
+            Logout
+          </button>
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
